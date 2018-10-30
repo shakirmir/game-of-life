@@ -6,8 +6,8 @@ node{
     }
     
     stage('Build and package'){
-	withSonarQubeEnv('sonarqube')
-        sh 'mvn package sonarqube:sonarqube'
+	withSonarQubeEnv('sonarpipeline')
+        sh 'mvn package sonarpipeline:sonarpipeline'
 
     }
     
