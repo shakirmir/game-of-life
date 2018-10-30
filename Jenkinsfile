@@ -1,29 +1,18 @@
-
-node{
-    
-    stage('SCM'){
-    git 'https://github.com/shakirmir/game-of-life.git'
+node {
+    stage('SCM') {
+        git 'https://github.com/shakirmir/game-of-life.git'
     }
     
-    stage('Build and package'){
-	withSonarQubeEnv('sonar')
-        sh 'mvn package sonar:sonar'
-
+    stage('Build & Package') {
+        withSonarQubeEnv('sonar') {
+            sh 'mvn clean package sonar:sonar'
+        }
     }
     
-    stage('archive the artifact'){
+   
+    
+    stage('Results'){
         archive 'gameoflife-web/target/gameoflife.war'
-
+        junit 'gameoflife-web/target/surefire-reports/*.xml'
     }
-      stage('Test Results'){
-          junit 'gameoflife-web\\target\\surefire-reports\\*.xml'
-
-      }  
-    }
-
-
-
-
-
-
-
+}
